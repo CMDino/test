@@ -8,10 +8,6 @@ def run_git_command(command, data):
       print(result.stdout.strip())
    except subprocess.CalledProcessError as e:
       if "CONFLICT (content): Merge conflict" in e.stdout:
-         openVSCode = False
-         if openVSCode == False:
-            # subprocess.run(["code"], shell=True)
-            openVSCode = True
          while True:
             try:
                print("riga 18")
