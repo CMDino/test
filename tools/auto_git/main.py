@@ -37,7 +37,7 @@ def main():
    run_git_command(["git", "checkout", data["branch"]], data)
 
 # delta
-# ciao
+# delta
 # ciao
 # ciao
 # ciao
