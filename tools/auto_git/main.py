@@ -42,7 +42,7 @@ def main():
 # delta
 # delta
 # delta
-# weeeeee
+# delta
 
 if __name__ == "__main__":
    main()
