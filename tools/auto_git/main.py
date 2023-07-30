@@ -20,10 +20,10 @@ def run_git_command(command, data):
             try:
                print("riga 18")
                result = subprocess.run(["git", "merge", data["branch"]], cwd=data["path"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, text=True)
-               print("riga 20")
+               print(f"riga 20 {result.stdout}")
                break
             except subprocess.CalledProcessError as e:
-               print("riga 23")
+               print(f"riga 23 {e.stdout}")
                pass
       print(f"Error executing command: {command}\n{e.stderr}")
       sys.exit(1)
