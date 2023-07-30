@@ -17,7 +17,9 @@ def run_git_command(command, data):
                break
             except subprocess.CalledProcessError as e:
                print(f"riga 23 {e.stdout} ----- {e.stderr}")
-               pass
+               if "(MERGE_HEAD exists)" in e.stderr:
+                  result = subprocess.run(["git", "commit", "-m", "test"], cwd=data["path"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, text=True)
+                  break
       input()
       #sys.exit(1)
 
