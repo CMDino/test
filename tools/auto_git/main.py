@@ -8,6 +8,8 @@ def run_git_command(command, data):
       result = subprocess.run(command, cwd=data["path"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
       print(result.stdout.strip())
    except subprocess.CalledProcessError as e:
+      print(f"stderr: {e.stderr}")
+      print(f"stdout: {e.stdout}")
       if "Error executing command: ['git', 'merge'" in e.stderr:
          if openVSCode == False:
             print(f"openVSCode: {openVSCode}")
