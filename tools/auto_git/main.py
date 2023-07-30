@@ -38,7 +38,7 @@ def main():
    run_git_command(["git", "push"], data)
    run_git_command(["git", "checkout", data["branch"]], data)
 
-# CIAO
+# suca
 # suca
 # CIIIIAAAAAAOOOO
 # CIAIAOIAOAIOIAOA
