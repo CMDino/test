@@ -1,0 +1,175 @@
+import os
+import shutil
+import argparse
+
+# ////////////////////////////////////// FUNCTIONS
+
+def dir_create(dir_name):
+  if os.path.exists(dir_name):
+    shutil.rmtree(dir_name)
+  os.mkdir(dir_name)
+  os.mkdir(f'{dir_name}/src')
+  os.mkdir(f'{dir_name}/src/includes')
+
+def makefile_create(project_name):
+  makefile = open(f'./{project_name}/Makefile', 'w')
+  makefile.write('# Compiler and compiler flags\n')
+  makefile.write('CC = gcc\n')
+  makefile.write('CFLAGS = -Wall -Wextra -std=c99\n')
+  makefile.write('\n')
+  makefile.write('# Directories\n')
+  makefile.write('SRC_DIR = src\n')
+  makefile.write('BIN_DIR = $(MAIN_DIR)\\build\\bin\n')
+  makefile.write('\n')
+  makefile.write('# Source files and object files\n')
+  makefile.write('SOURCES = $(wildcard $(SRC_DIR)/*.c)\n')
+  makefile.write('OBJECTS = $(patsubst $(SRC_DIR)/%.c, $(BIN_DIR)/%.o, $(SOURCES))\n')
+  makefile.write('\n')
+  makefile.write('# Target executable\n')
+  makefile.write('TARGET = $(EXE_NAME)\n')
+  makefile.write('\n')
+  makefile.write('# Rules\n')
+  makefile.write('all: $(BIN_DIR) $(TARGET) rm_junk mv_build\n')
+  makefile.write('\n')
+  makefile.write('$(BIN_DIR):\n')
+  makefile.write('	mkdir $(BIN_DIR)\n')
+  makefile.write('\n')
+  makefile.write('$(TARGET): $(OBJECTS)\n')
+  makefile.write('	$(CC) $(CFLAGS) -o $(TARGET) $(OBJECTS)\n')
+  makefile.write('\n')
+  makefile.write('$(BIN_DIR)/%.o: $(SRC_DIR)/%.c\n')
+  makefile.write('	$(CC) $(CFLAGS) -c $< -o $@\n')
+  makefile.write('\n')
+  makefile.write('clean:\n')
+  makefile.write('	del /Q $(BIN_DIR)\\$(TARGET).exe\n')
+  makefile.write('\n')
+  makefile.write('rm_junk:\n')
+  makefile.write('	del /Q $(BIN_DIR)\\*.o\n')
+  makefile.write('\n')
+  makefile.write('mv_build:\n')
+  makefile.write('	move ".\$(TARGET).exe" $(BIN_DIR)\\$(TARGET).exe"\n')
+  makefile.write('\n')
+  makefile.write('.PHONY: all clean\n')
+  makefile.close()
+
+def run_create(project_name):
+  run = open(f'./{project_name}/_run.bat', 'w')
+  run.write('@echo off\n')
+  run.write('cls\n')
+  run.write('\n')
+  run.write('if not defined MAIN_DIR (set MAIN_DIR=C:\\Users\\bonaffino\\Desktop\\repo)\n')
+  run.write(f'set EXE_NAME={project_name}\n')
+  run.write('\n')
+  run.write('rem /////////////////////////////////\n')
+  run.write('\n')
+  run.write('if exist "%MAIN_DIR%\\build\\bin\\%EXE_NAME%.exe" (\n')
+  run.write('  "%MAIN_DIR%\\build\\bin\\%EXE_NAME%.exe"\n')
+  run.write('  echo.\n')
+  run.write('  echo.\n')
+  run.write('  echo ****************************\n')
+  run.write('  echo ****************************\n')
+  run.write('  echo *** C application ended. ***\n')
+  run.write('  echo ****************************\n')
+  run.write('  echo ****************************\n')
+  run.write('  echo.\n')
+  run.write('  echo.\n')
+  run.write(') else (\n')
+  run.write('  echo Executable not found.\n')
+  run.write(')\n')
+  run.write('\n')
+  run.write('pause\n')
+  run.write('echo.\n')
+  run.write('echo.\n')
+  run.write('echo.\n')
+  run.close
+
+def build_create(project_name):
+  build = open(f'./{project_name}/_build.bat', 'w')
+  build.write('@echo off\n')
+  build.write('cls\n')
+  build.write('\n')
+  build.write('if not defined MAIN_DIR (set MAIN_DIR=C:\\Users\\bonaffino\\Desktop\\repo)\n')
+  build.write(f'set EXE_NAME={project_name}\n')
+  build.write('\n')
+  build.write('rem /////////////////////////////////\n')
+  build.write('\n')
+  build.write('mingw32-make.exe clean && mingw32-make.exe\n')
+  build.write('\n')
+  build.write('pause\n')
+  build.write('echo.\n')
+  build.write('echo.\n')
+  build.write('echo.\n')
+  build.close()
+
+def write_doxygen(file, project_name, filename):
+  file.write(f'/**\n')
+  file.write(f'*\n')
+  file.write(f'* @project_id -\n')
+  file.write(f'* @ref_sdd -\n')
+  file.write(f'*\n')
+  file.write(f'* @page {project_name}\n')
+  file.write(f'* @file {filename}\n')
+  file.write(f'* @author -\n')
+  file.write(f'* @details -\n')
+  file.write(f'*\n')
+  file.write(f'**/\n')
+
+def headers_sources_create(project_name, files):
+  for file in files:
+    header = open(f'./{project_name}/src/includes/{file}.h', 'w')    
+    write_doxygen(header, project_name, f'{file}.h')
+    header.write(f'\n')
+    header.write(f'#ifndef {str.upper(file)}_H\n')
+    header.write(f'#define {str.upper(file)}_H\n')
+    header.write(f'\n')
+    header.write(f'#endif // {str.upper(file)}_H\n')
+    header.close()
+    source = open(f'./{project_name}/src/{file}.c', 'w')
+    write_doxygen(source, project_name, f'{file}.c')
+    source.write(f'\n')
+    source.write(f'#ifndef {str.upper(file)}_C\n')
+    source.write(f'#define {str.upper(file)}_C\n')
+    source.write(f'\n')
+    source.write(f'#include "{file}.c"\n')
+    source.write(f'\n')
+    source.write(f'#endif // {str.upper(file)}_C\n')
+    source.close()
+
+def main_create(project_name):
+  main = open(f'./{project_name}/src/main.c', 'w')
+  write_doxygen(main, project_name, 'main.c')
+  main.write(f'\n')
+  main.write(f'#ifndef MAIN_C\n')
+  main.write(f'#define MAIN_C\n')
+  main.write(f'\n')
+  main.write(f'#include <stdio.h>\n')
+  main.write(f'#include <stdlib.h>\n')
+  main.write('\n')
+  main.write('int main()\n{\n\n\treturn 0;\n}\n\n')
+  main.write(f'#endif // MAIN_C\n')
+  main.close()
+
+# ////////////////////////////////////// MAIN
+
+def main():
+  parser = argparse.ArgumentParser(description='Create a C project generating its files and compilation/run scripts')
+  parser.add_argument('--proj', type=str, help='project name')
+  parser.add_argument('--author', type=str, help='project author')
+  parser.add_argument('--details', type=str, help='project description')
+  parser.add_argument("--files", type=str, help="comma-separated list of project files")
+  args = parser.parse_args()
+
+  project_name = args.proj
+  files = [x for x in args.files.split(',')]
+
+  dir_create(project_name)
+  makefile_create(project_name)
+  build_create(project_name)
+  run_create(project_name)
+  headers_sources_create(project_name, files)
+  main_create(project_name)
+
+# //////////////////////////////////////
+
+if __name__ == "__main__":
+  main()
