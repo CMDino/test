@@ -41,7 +41,7 @@ Guida all'uso di git per la condivisione della directory di lavoro.
   - **\<git push>**: push dei commit locali nella remote repository
   - **\<git branch [name]>**: creazione di un branch locale
   - **\<git branch -u [source] [name]>**: creazione di un remote branch
-  - **\<git branch -d [name]>**: eliminazione di un branch local
+  - **\<git branch -d [name]>**: eliminazione di un branch locale
   - **\<git checkout [name]>**: switch del branch corrente
   - **\<git merge [source]>**: merge dei cambiamenti sul branch corrente da quello [source]
 
