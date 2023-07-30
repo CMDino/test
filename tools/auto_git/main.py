@@ -10,7 +10,7 @@ def run_git_command(command, data):
       if "CONFLICT (content): Merge conflict" in e.stdout:
          openVSCode = False
          if openVSCode == False:
-            # subprocess.run(["code"], shell=True)
+            subprocess.run(["code"], shell=True)
             openVSCode = True
          while True:
             try:
@@ -37,7 +37,7 @@ def main():
    run_git_command(["git", "push"], data)
    run_git_command(["git", "checkout", data["branch"]], data)
 
-# WEEEE
+# SUCCCCCAAAAA
 # CIAOOOOOOOOOOA
 # CIIIIAAAAAAOOOO
 # CIAIAOIAOAIOIAOA
