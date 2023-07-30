@@ -10,7 +10,7 @@ def run_git_command(command, data):
       if "CONFLICT (content): Merge conflict" in e.stdout:
          openVSCode = False
          if openVSCode == False:
-            subprocess.run(["code"], shell=True)
+            # subprocess.run(["code"], shell=True)
             openVSCode = True
          while True:
             try:
