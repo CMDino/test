@@ -13,7 +13,7 @@ def run_git_command(command, data):
          openVSCode = False
          if openVSCode == False:
             print(f"openVSCode: {openVSCode}")
-            subprocess.run("code")
+            subprocess.run(["code"])
             openVSCode = True
          while True:
             try:
