@@ -45,7 +45,7 @@ def main():
 # CIAOOOOOOOOOOA
 # CIIIIAAAAAAOOOO
 # CIAIAOIAOAIOIAOA
-# WEEEEEEE
+# SUUUUCCCCCCAAAAA
 
 if __name__ == "__main__":
    main()
