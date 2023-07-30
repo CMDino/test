@@ -1,0 +1,19 @@
+# Build artifacts
+/bin/*
+/libs/*
+/obj/
+/out/
+
+# List of types of files to exclude
+*.exe
+*.dll
+*.obj
+*.lib
+*.o
+*.a
+*.pdb
+*.idb
+*.manifest
+*.ilk
+*.json
+.DS_Store
