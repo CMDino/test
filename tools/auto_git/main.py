@@ -34,6 +34,7 @@ def main():
    run_git_command(["git", "checkout", "develop"], data)
    run_git_command(["git", "merge", data["branch"]], data)
    run_git_command(["git", "push"], data)
+   run_git_command(["git", "pull"], data)
    run_git_command(["git", "checkout", data["branch"]], data)
 
 # delta
