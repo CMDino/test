@@ -4,7 +4,7 @@ import subprocess, sys, json
 
 def run_git_command(command, data):
    try:
-      result = subprocess.run(command, cwd=data["path"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
+      result = subprocess.run(command, cwd=data["path"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
       print(result.stdout.strip())
    except subprocess.CalledProcessError as e:
       print(f"stderr: {e.stderr}")
@@ -13,12 +13,13 @@ def run_git_command(command, data):
          openVSCode = False
          if openVSCode == False:
             print(f"openVSCode: {openVSCode}")
-            subprocess.run(["code"])
+            subprocess.run(["code"], shell=True)
             openVSCode = True
+            print(f"openVSCode: {openVSCode}")
          while True:
             try:
                print("riga 18")
-               result = subprocess.run(["git", "merge", data["branch"]], cwd=data["path"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
+               result = subprocess.run(["git", "merge", data["branch"]], cwd=data["path"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                print("riga 20")
                break
             except subprocess.CalledProcessError as e:
