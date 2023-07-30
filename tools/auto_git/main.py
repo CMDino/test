@@ -22,7 +22,7 @@ def run_git_command(command, data):
                print(f"riga 23 {e.stdout}")
                pass
       print(f"Error executing command: {command}\n{e.stderr} --- Trying to solve...")
-      # sys.exit(1)
+      sys.exit(1)
 
 def main():
    with open("configuration.json", "r") as file:
