@@ -38,7 +38,7 @@ def main():
    run_git_command(["git", "merge", "develop"], data)
    run_git_command(["git", "push"], data)
 
-# delta
+# DDDDDDDDD
 # delta
 # delta
 # delta
