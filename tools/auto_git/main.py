@@ -7,7 +7,6 @@ def run_git_command(command, data):
       result = subprocess.run(command, cwd=data["path"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, text=True)
       print(result.stdout.strip())
    except subprocess.CalledProcessError as e:
-      print(f"Error executing command: {command}\n{e.stderr} --- Trying to solve...")
       if "CONFLICT (content): Merge conflict" in e.stdout:
          openVSCode = False
          if openVSCode == False:
@@ -22,6 +21,7 @@ def run_git_command(command, data):
             except subprocess.CalledProcessError as e:
                print(f"riga 23 {e.stdout}")
                pass
+      print(f"Error executing command: {command}\n{e.stderr} --- Trying to solve...")
       input()
       # sys.exit(1)
 
