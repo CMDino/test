@@ -18,12 +18,12 @@ def run_git_command(command, data):
             print(f"openVSCode: {openVSCode}")
          while True:
             try:
-               print("riga 18")
+               print(f"riga 18 {e.stdout}")
                result = subprocess.run(["git", "merge", data["branch"]], cwd=data["path"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, text=True)
-               print("riga 20")
+               print(f"riga 20 {e.stdout}")
                break
             except subprocess.CalledProcessError as e:
-               print("riga 23")
+               print(f"riga 23 {e.stdout}")
                pass
       print(f"Error executing command: {command}\n{e.stderr}")
       sys.exit(1)
@@ -44,7 +44,7 @@ def main():
 # CIAAAOOOOOOOOO
 # CIAOOOOOOOOOOA
 # CIIIIAAAAAAOOOO
-# WEEEEEEE
+# SUUUCAAAAAAAA
 # WEEEEEEE
 
 if __name__ == "__main__":
