@@ -10,7 +10,7 @@ def run_git_command(command, data):
    except subprocess.CalledProcessError as e:
       print(f"stderr: {e.stderr}")
       print(f"stdout: {e.stdout}")
-      if "Error executing command: ['git', 'merge'" in e.stderr:
+      if "CONFLICT (content): Merge conflict" in e.stdout:
          if openVSCode == False:
             print(f"openVSCode: {openVSCode}")
             subprocess.run(["code"])
