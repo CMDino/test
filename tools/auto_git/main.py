@@ -2,7 +2,7 @@ import subprocess, sys, json
 
 # ////////////////////
 
-def run_git_command(command, data):
+def run_git_command(command, data, msg):
    try:
       result = subprocess.run(command, cwd=data["path"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, text=True)
       print(result.stdout.strip())
@@ -22,16 +22,16 @@ def main():
    with open("configuration.json", "r") as file:
       data = json.load(file)
    msg = input("Enter comment for commit: ")
-   run_git_command(["git", "checkout", data["branch"]], data)
-   run_git_command(["git", "add", "*"], data)
-   run_git_command(["git", "commit", "-m", f"\"{msg}\""], data)
-   run_git_command(["git", "push"], data)
-   run_git_command(["git", "checkout", "develop"], data)
-   run_git_command(["git", "merge", data["branch"]], data)
-   run_git_command(["git", "push"], data)
-   run_git_command(["git", "checkout", data["branch"]], data)
-   run_git_command(["git", "merge", "develop"], data)
-   run_git_command(["git", "push"], data)
+   run_git_command(["git", "checkout", data["branch"]], data, msg)
+   run_git_command(["git", "add", "*"], data, msg)
+   run_git_command(["git", "commit", "-m", f"\"{msg}\""], data, msg)
+   run_git_command(["git", "push"], data, msg)
+   run_git_command(["git", "checkout", "develop"], data, msg)
+   run_git_command(["git", "merge", data["branch"]], data, msg)
+   run_git_command(["git", "push"], data, msg)
+   run_git_command(["git", "checkout", data["branch"]], data, msg)
+   run_git_command(["git", "merge", "develop"], data, msg)
+   run_git_command(["git", "push"], data, msg)
 
 if __name__ == "__main__":
    main()
