@@ -54,7 +54,7 @@ def main():
       run_git_command(["git", "push"], data, msg)
    run_git_command(["git", "checkout", "develop"], data, msg)
    run_git_command(["git", "merge", data["branch"]], data, msg)
-   run_git_command(["git", "push"], data, msg)
+   run_git_push(["git", "push"], data, msg)
    run_git_command(["git", "checkout", data["branch"]], data, msg)
    run_git_command(["git", "merge", "develop"], data, msg)
    run_git_command(["git", "push"], data, msg)
