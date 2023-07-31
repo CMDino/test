@@ -6,7 +6,7 @@ def is_vscode_running():
    for process in os.popen('tasklist').readlines():
       if 'code.exe' in process.lower():
          return True
-      return False
+   return False
 
 def run_git_command(command, data, msg):
    try:
