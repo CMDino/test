@@ -44,8 +44,8 @@ def run_git_command(command, data, msg):
 def main():
    with open("configuration.json", "r") as file:
       data = json.load(file)
-   run_git_command(["git", "checkout", data["branch"]], data, msg)
    msg = input("Enter comment for commit: ")
+   run_git_command(["git", "checkout", data["branch"]], data, msg)
    if run_git_status(["git", "status"], data, msg):
       run_git_command(["git", "add", "*"], data, msg)
       run_git_command(["git", "commit", "-m", f"\"{msg}\""], data, msg)
@@ -53,9 +53,7 @@ def main():
    run_git_command(["git", "checkout", "develop"], data, msg)
    run_git_command(["git", "merge", data["branch"]], data, msg)
    run_git_push(["git", "push"], data, msg)
-   run_git_command(["git", "checkout", data["branch"]], data, msg)
-   run_git_command(["git", "merge", "develop"], data, msg)
-   run_git_command(["git", "push"], data, msg)
+   run_git_command(["git", "branch", "-D", data["branch"]], data, msg)
 
 if __name__ == "__main__":
    main()
