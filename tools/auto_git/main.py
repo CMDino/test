@@ -1,6 +1,6 @@
 import subprocess, json, psutil
 
-# PPPPP
+# LLLLLLL
 
 def is_vscode_running():
    for process in psutil.process_iter(['pid', 'name']):
