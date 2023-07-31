@@ -15,6 +15,14 @@ def run_git_status(command, data, msg):
    except subprocess.CalledProcessError as e:
       pass
 
+def run_git_push(command, data, msg):
+   try:
+      result = subprocess.run(command, cwd=data["path"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, text=True)
+   except subprocess.CalledProcessError as e:
+      if "[rejected]" in e.stdout:
+         run_git_command(["git", "pull"], data, msg)
+         run_git_command(["git", "push"], data, msg)
+
 def run_git_command(command, data, msg):
    try:
       result = subprocess.run(command, cwd=data["path"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, text=True)
@@ -44,7 +52,7 @@ def main():
       run_git_command(["git", "push"], data, msg)
    run_git_command(["git", "checkout", "develop"], data, msg)
    run_git_command(["git", "merge", data["branch"]], data, msg)
-   run_git_command(["git", "push"], data, msg)
+   run_git_push(["git", "push"], data, msg)
    run_git_command(["git", "checkout", data["branch"]], data, msg)
    run_git_command(["git", "merge", "develop"], data, msg)
    run_git_command(["git", "push"], data, msg)
