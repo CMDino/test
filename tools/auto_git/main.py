@@ -16,7 +16,7 @@ def run_git_command(command, data, msg):
       print(f"Error executing command: {command}\n{e.stderr} --- Trying to solve...")
       if "CONFLICT (content): Merge conflict" in e.stdout:
          if not is_vscode_running():
-            subprocess.run(["code"], shell=True)
+            subprocess.run(["code", data["path"]], shell=True)
          while True:
             try:
                result = subprocess.run(["git", "merge", data["branch"]], cwd=data["path"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, text=True)
