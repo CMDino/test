@@ -1,7 +1,10 @@
-import subprocess, json
+import subprocess, json, psutil
 
-# CIAO
-# WEEEEEEEE
+def is_vscode_running():
+   for process in psutil.process_iter(['pid', 'name']):
+      if 'code' in process.info['name'].lower():
+         return True
+      return False
 
 def run_git_command(command, data, msg):
    try:
@@ -10,10 +13,8 @@ def run_git_command(command, data, msg):
    except subprocess.CalledProcessError as e:
       print(f"Error executing command: {command}\n{e.stderr} --- Trying to solve...")
       if "CONFLICT (content): Merge conflict" in e.stdout:
-         openVSCode = False
-         if openVSCode == False:
+         if not is_vscode_running():
             subprocess.run(["code"], shell=True)
-            openVSCode = True
          while True:
             try:
                result = subprocess.run(["git", "merge", data["branch"]], cwd=data["path"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, text=True)
