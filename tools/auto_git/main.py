@@ -1,10 +1,10 @@
-import subprocess, json, psutil
+import subprocess, json, os
 
 # QQQQQ
 
 def is_vscode_running():
-   for process in psutil.process_iter(['pid', 'name']):
-      if 'code' in process.info['name'].lower():
+   for process in os.popen('tasklist').readlines():
+      if 'code.exe' in process.lower():
          return True
       return False
 
