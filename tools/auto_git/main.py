@@ -10,6 +10,15 @@ def is_vscode_running():
          return True
    return False
 
+def run_git_status(command, data, msg):
+   try:
+      result = subprocess.run(command, cwd=data["path"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, text=True)
+      if "no changes added to commit" in result.stdout:
+         return True
+      return False
+   except subprocess.CalledProcessError as e:
+      pass
+
 def run_git_command(command, data, msg):
    try:
       result = subprocess.run(command, cwd=data["path"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, text=True)
@@ -32,11 +41,11 @@ def main():
    with open("configuration.json", "r") as file:
       data = json.load(file)
    msg = input("Enter comment for commit: ")
-   run_git_command(["git", "status"], data, msg)
    run_git_command(["git", "checkout", data["branch"]], data, msg)
-   run_git_command(["git", "add", "*"], data, msg)
-   run_git_command(["git", "commit", "-m", f"\"{msg}\""], data, msg)
-   run_git_command(["git", "push"], data, msg)
+   if run_git_status(["git", "status"], data, msg):
+      run_git_command(["git", "add", "*"], data, msg)
+      run_git_command(["git", "commit", "-m", f"\"{msg}\""], data, msg)
+      run_git_command(["git", "push"], data, msg)
    run_git_command(["git", "checkout", "develop"], data, msg)
    run_git_command(["git", "merge", data["branch"]], data, msg)
    run_git_command(["git", "push"], data, msg)
